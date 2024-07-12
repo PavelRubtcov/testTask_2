@@ -30,8 +30,8 @@ def textGenerator(requeste, text):
 	(width, higth), _ = cv2.getTextSize(text, font_face, font_scale, thickness)#записываем размеры текста
 	bg_w, bg_h = int(2*int(3*higth*wh) + width), int(3 * higth)#записываем размер фона
 	bg_img = np.zeros((bg_h, bg_w, 3), np.uint8)#создание матрицы изображения
-	bg_img[0:bg_h//2,:,1] = 200 # заполняем матрицу в зелёный цвет [y , x]
-	bg_img[:,0:bg_w//2,0] = 53 # заполняем матрицу в синий цвет
+	bg_img[:,:,1] = 200 # заполняем матрицу в зелёный цвет [y , x]
+	bg_img[:,:,0] = 53 # заполняем матрицу в синий цвет
 	text_color = (255, 255, 255)#задаем цвет текста
 
 	# накладываем текст на фоновое изображение и приводим к нужному размеру
@@ -39,14 +39,14 @@ def textGenerator(requeste, text):
 	koef = ws_w / bg_w#коэффициент перевода 
 	org = (int(3*higth*wh), int(2 * higth))#int(higth / 2)#задаем координаты левого нижнего угла текста на картинке
 	img_w_text = cv2.putText(bg_img, text, org, font_face, font_scale, text_color, thickness)#рисуем строку текста на фоне 
-	target_img = cv2.resize(img_w_text, (ws_h*bg_w//bg_h,ws_h))#(int((2*int((3*higth*wh)) + width)/bg_h)* ws_h, ws_h)) #(int(((bg_w/bg_h)*ws_h)), ws_h))#изменяем размер картинки под наши нужды
+	target_img = cv2.resize(img_w_text, (ws_h*bg_w//bg_h,ws_h))#изменяем размер картинки под наши нужды
 
 	# создаём VideoWriter и записываем кадры
 	time = 3#длительность видео в секундах
 	num_frames = int(fps * time)#задаём количество кадров
-	#step = int((round(width*ws_h/bg_h) + ws_w)/num_frames)#(int(100 * bg_w / bg_h) - 100) / num_frames#задаём сдвиг
-	step = (ws_h*bg_w//bg_h - ws_w) // (num_frames + 1)#int((int((2*int((3*higth*wh)) + width)/bg_h)*ws_h - ws_w)/num_frames)
+	step = (ws_h*bg_w//bg_h - ws_w) // (num_frames + 1)#задаём сдвиг
 	video = cv2.VideoWriter(video_path, fourcc, fps, (ws_w, ws_h))#создаём объект VideoWriter для записи видео
+	
 	#создаём цикл для покадровой записи
 	print('WRiting ', text)
 	print(width, higth, bg_w, bg_h, step,num_frames, ws_h*bg_w//bg_h, len(target_img[0]))
