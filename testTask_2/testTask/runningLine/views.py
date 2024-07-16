@@ -15,13 +15,13 @@ def textGenerator(requeste, text):
 	infoBd = Request(userText = text, dateText = localtime(now()))#создаю объект модели Request
 	infoBd.save()#cохраняю в БД
 	# задаём параметры для отображения текста и записи видео
-	ws_h = 400#высота видео в пикселях
-	ws_w = 600#ширина видео в пикселях
+	ws_h = 100#высота видео в пикселях
+	ws_w = 100#ширина видео в пикселях
 	wh = ws_w/ws_h
 	fps = 24.0#задаём количество кадров
 	path_to_save = '/content/testTask_2'#путь сохранения видеофаййла
 	video_path = os.path.join(path_to_save, "video" + ".mp4")#соединяет путь с именем файла
-	font_face = cv2.FONT_HERSHEY_TRIPLEX#задание типа шрифта
+	font_face = cv2.FONT_HERSHEY_COMPLEX#задание типа шрифта
 	font_scale = 8.0#размер шрифта
 	thickness = 8#толщина шрифта
 	fourcc = cv2.VideoWriter.fourcc('m','p','4','v')#сохраняем файл с помощью видеокодека FourCC
@@ -38,7 +38,7 @@ def textGenerator(requeste, text):
 
 	koef = ws_w / bg_w#коэффициент перевода 
 	org = (int(3*higth*wh), int(2 * higth))#int(higth / 2)#задаем координаты левого нижнего угла текста на картинке
-	img_w_text = cv2.putText(bg_img, text, org, font_face, font_scale, text_color, thickness)#рисуем строку текста на фоне 
+	img_w_text = cv2.putText(bg_img, text, org, font_face, font_scale, text_color, thickness, cv2.LINE_AA)#рисуем строку текста на фоне 
 	target_img = cv2.resize(img_w_text, (ws_h*bg_w//bg_h,ws_h))#изменяем размер картинки под наши нужды
 
 	# создаём VideoWriter и записываем кадры
