@@ -20,7 +20,7 @@ def textGenerator(requeste, text):
 	wh = ws_w/ws_h
 	fps = 24.0#задаём количество кадров
 	path_to_save = '/content/testTask_2'#путь сохранения видеофаййла
-	video_path = os.path.join(path_to_save, "video" + ".mp4")#соединяет путь с именем файла
+	video_path = os.path.join(path_to_save, "testVideo" + ".mp4")#соединяет путь с именем файла
 	font_face = cv2.FONT_HERSHEY_COMPLEX#задание типа шрифта
 	font_scale = 8.0#размер шрифта
 	thickness = 8#толщина шрифта
