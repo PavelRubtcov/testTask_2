@@ -44,7 +44,7 @@ def textGenerator(requeste, text):
 	# создаём VideoWriter и записываем кадры
 	time = 3#длительность видео в секундах
 	num_frames = int(fps * time)#задаём количество кадров
-	step = (ws_h*bg_w//bg_h - ws_w) // (num_frames + 1)#задаём сдвиг
+	step = (ws_h*bg_w//bg_h + ws_w) // (num_frames)#задаём сдвиг
 	video = cv2.VideoWriter(video_path, fourcc, fps, (ws_w, ws_h))#создаём объект VideoWriter для записи видео
 	
 	#создаём цикл для покадровой записи
